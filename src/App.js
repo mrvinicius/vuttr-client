@@ -1,45 +1,48 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
+import { getAllTools } from './server-api';
 import ToolList from './tool-list/Tool-list';
 import Spinner from './spinner/Spinner';
-
-axios.defaults.baseURL = 'http://localhost:3000';
+import NewToolModalContainer from './new-tool-modal/New-tool-modal.container';
 
 class App extends Component {
 	state = {
-		tools: []
+		tools: [],
+		addModalIsOpen: false
+	}
+
+	constructor(params) {
+		super(params);
+		this.updateToolList = this.updateToolList.bind(this);
 	}
 
 	async componentDidMount() {
 		const tools = await getAllTools();
-		this.setState({ tools });
-	}	
-		
+		this.updateToolList(tools);
+	}
+
+	updateToolList(tools) {
+		this.setState(prevState => ({ tools: [...prevState.tools, ...tools] }));
+	}
+
 	render() {
 		return (
 			<div className="App">
 				<h1>VUTTR</h1>
 				<h2>Very Useful Tools to Remember</h2>
+				<button onClick={_ => this.setState({ addModalIsOpen: true })}>Add</button>
 				{
 					this.state.tools && this.state.tools.length
-					? <ToolList tools={this.state.tools} />
-					: <Spinner />
+						? <ToolList tools={this.state.tools} />
+						: <Spinner />
 				}
+				<NewToolModalContainer
+					isOpen={this.state.addModalIsOpen}
+					close={_ => this.setState({ addModalIsOpen: false })}
+					updateToolList={this.updateToolList} />
 			</div>
 		);
 	}
-}
-
-function wait(ms) {
-	return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-async function getAllTools() {
-	const response = await axios.get('/tools');
-	await wait(1000);
-	console.log(response.data);
-	return response.data;
 }
 
 export default App;

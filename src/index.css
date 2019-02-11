@@ -12,3 +12,17 @@ code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
 		monospace;
 }
+
+.form-group {
+	position: relative;
+}
+
+.form-group input[type=text], input[type=url], select, textarea {
+	width: 100%;
+}
+
+/* .form-group input + label {
+	position: absolute;
+	top: 0;
+	font-size: 0.8em;
+} */
