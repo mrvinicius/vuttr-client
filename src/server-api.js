@@ -17,11 +17,23 @@ async function getAll() {
 }
 
 async function remove(id) {
-    axiosInstance.delete(`/tools/${id}`)
+    axiosInstance.delete(`/tools/${id}`);
+}
+
+async function search(title) {
+    const { data } = await axiosInstance.get(`/tools?q=${title}`);
+    await wait(1000);
+    return data;
+}
+
+async function searchInTags(tag) {
+    const { data } = await axiosInstance.get(`/tools?tags_like=${tag}`);
+    await wait(1000);
+    return data;
 }
 
 function wait(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export default { add, getAll, remove };
+export default { add, getAll, remove, search, searchInTags };
