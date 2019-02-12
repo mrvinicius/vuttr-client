@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { addTool } from '../server-api';
+import toolApi from '../server-api';
 import NewToolModal from './New-tool-modal';
 
 
@@ -39,7 +39,7 @@ class NewToolModalContainer extends Component {
         const form = event.target;
         const tool = {
             title: form.title.value,
-            link: form.link.value,
+            link: setHttp(form.link.value),
             description: form.description.value,
             tags: this.state.tags
         };
@@ -49,12 +49,10 @@ class NewToolModalContainer extends Component {
             this.setState({ errors });
             return;
         }
-
-        tool.link = setHttp(tool.link);
         
         try {
-            const addedTool = await addTool(tool);
-            this.props.updateToolList([addedTool]);
+            const addedTool = await toolApi.add(tool);
+            this.props.addToolsInState(addedTool);
             form.reset();
             this.props.close();
         } catch (error) {

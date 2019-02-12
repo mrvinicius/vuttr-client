@@ -3,7 +3,7 @@ import React from 'react';
 import Modal from '../modal/Modal';
 
 const NewToolModal = props => (
-    <Modal {...props} closeCallback={props.close} header={<h2>Add new tool</h2>}>
+    <Modal {...props} header={<h2>Add new tool</h2>}>
         <form onSubmit={props.handleSubmit}>
             <span>{props.errors.formMessage ? props.errors.formMessage : null}</span>
 

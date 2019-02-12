@@ -2,8 +2,8 @@ import React from 'react';
 
 import './Modal.css';
 
-const Modal = ({header, children, actions, isOpen, closeCallback}) => (
-    <div className={`modal-overlay ${isOpen ? 'open' : ''}`} onClick={getOverlayClickHandler(closeCallback)}>
+const Modal = ({ header, children, actions, isOpen, close }) => (
+    <div className={`modal-overlay ${isOpen ? 'open' : ''}`} onClick={getExitHandler(close)}>
         <div className="Modal">
             <div className="Modal__header">
                 {header}
@@ -18,9 +18,9 @@ const Modal = ({header, children, actions, isOpen, closeCallback}) => (
     </div>
 );
 
-function getOverlayClickHandler(callback) {
+function getExitHandler(callback) {
     return event => {
-        if (event.target === event.currentTarget) {        
+        if (event.target === event.currentTarget) {
             callback()
         }
     }
