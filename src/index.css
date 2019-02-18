@@ -1,11 +1,13 @@
 body {
-	margin: 0;
 	padding: 0;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
 		"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
 		sans-serif;
+	font-family: 'Source Sans Pro', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	background-color: #4C4499;
+	font-size: 18px;
 }
 
 code {
@@ -17,12 +19,75 @@ code {
 	position: relative;
 }
 
-.form-group input[type=text], input[type=url], select, textarea {
+.form-group input[type=text],
+input[type=url],
+select,
+textarea {
 	width: 100%;
 }
 
-/* .form-group input + label {
+.h1-size {
+	font-size: 42px;
+}
+
+.h2-size {
+	font-size: 36px;
+}
+
+.white-text {
+	color: #fff;
+}
+
+a {
+	color: #2497B2;
+}
+
+.container {
+	margin: 0 auto;
+	width: 50%;
+}
+
+@media only screen and (max-width: 1000px) {
+	.container {
+		width: 76%;
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	.container {
+		width: 94%;
+	}
+}
+
+label {
+	color: #8F8A9B;
+}
+
+input[type="checkbox"] {
+	position: relative;
+	border-radius: 2px;
+	width: 24px;
+	height: 24px;
+	background-color: rgba(0, 0, 0, 0.4);
+	box-shadow: inset 0.5px 2.5px 7px 0 rgba(0, 0, 0, 0.25);
+	-webkit-appearance: none;
+}
+
+input[type="checkbox"]:checked::after {
+	content: "";
 	position: absolute;
-	top: 0;
-	font-size: 0.8em;
-} */
+	top: 6px;
+	left: 5px;
+	border-radius: 1px;
+	width: 13px;
+	height: 13px;
+	background-color: #30C3FC;
+}
+
+input[type="checkbox"]+label {
+	padding-left: 12px;
+}
+
+button {
+	border: none;
+}

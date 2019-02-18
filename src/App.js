@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import './App.css';
 import toolApi from './server-api';
 import ToolList from './tool-list/Tool-list';
 import Spinner from './spinner/Spinner';
@@ -74,34 +75,46 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				<h1>VUTTR</h1>
-				<h2>Very Useful Tools to Remember</h2>
+				<div className="container">
+					<header className="App__header">
+						<h1 className="h1-size white-text">VUTTR</h1>
+						<h2 className="h2-size white-text">Very Useful Tools to Remember</h2>
 
-				<label htmlFor="search">Search</label>
-				<input type="search" name="search" placeholder="search" id="search"
-					onInput={e => this.searchTool(e.target.value)} />
+						<div className="App__header-controls">
+							<div className="Search-field-wrapper">
+								<input className="Search-field-wrapper__field" type="search" name="search" id="search"
+									placeholder="search" onInput={e => this.searchTool(e.target.value)} />
+								<label htmlFor="search">search</label>
+							</div>
 
-				<input type="checkbox" name="searchInTag" id="searchInTags"
-					onChange={e => this.setState({ searchInTags: e.target.checked })} />
-				<label htmlFor="searchInTags">search in tags only</label>
 
-				<button onClick={_ => this.setState({ addModalIsOpen: true })}>Add</button>
-				{
-					this.state.tools && this.state.tools.length
-						? <ToolList tools={this.state.tools} remove={this.openRemovalConfirmDialog} />
-						: <Spinner />
-				}
+							<input type="checkbox" name="searchInTag" id="searchInTags"
+								onChange={e => this.setState({ searchInTags: e.target.checked })} />
+							<label className="white-text" htmlFor="searchInTags">search in tags only</label>
 
-				<NewToolModalContainer
-					isOpen={this.state.addModalIsOpen}
-					close={_ => this.setState({ addModalIsOpen: false })}
-					addToolsInState={this.addToolsInState} />
+							<button className="button add-button" onClick={_ => this.setState({ addModalIsOpen: true })}>
+								<img className="button__icon" src="/plus.svg" alt="Add Icon"/>
+								Add
+							</button>
+						</div>
+					</header>
+					{
+						this.state.tools && this.state.tools.length
+							? <ToolList tools={this.state.tools} remove={this.openRemovalConfirmDialog} />
+							: <Spinner />
+					}
 
-				<RemovalConfirmDialog
-					isOpen={this.state.removeModalIsOpen}
-					close={_ => this.closeRemovalConfirmDialog()}
-					remove={this.removeTool}
-					tool={this.state.toolToBeRemoved} />
+					<NewToolModalContainer
+						isOpen={this.state.addModalIsOpen}
+						close={_ => this.setState({ addModalIsOpen: false })}
+						addToolsInState={this.addToolsInState} />
+
+					<RemovalConfirmDialog
+						isOpen={this.state.removeModalIsOpen}
+						close={_ => this.closeRemovalConfirmDialog()}
+						remove={this.removeTool}
+						tool={this.state.toolToBeRemoved} />
+				</div>
 			</div>
 		);
 	}

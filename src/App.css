@@ -1,0 +1,65 @@
+.App__header {}
+
+.App__header-controls {
+    display: flex;
+    align-items: center;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    border-radius: 100px;
+    padding: 0em 1.6em;
+    height: 46px;
+    font-weight: 600;
+}
+
+.button__icon {
+    margin-right: 5px;
+}
+
+.add-button {
+
+    background: linear-gradient(110.82deg, #9BEB5D 0%, #12DB89 100%);
+}
+
+.App__header-controls .add-button {
+    margin-left: auto;
+}
+
+.App__header-controls .Search-field-wrapper {
+    margin-right: 27px;
+}
+
+.Search-field-wrapper {
+    position: relative;
+}
+
+.Search-field-wrapper__field {
+    border-width: 0;
+    border-radius: 3px;
+    padding: 0;
+    padding-left: 46px;
+    height: 46px;
+    box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.25);
+    background: #ffffff;
+    background-image: url("/search.svg");
+    background-repeat: no-repeat;
+    background-position: 11px 50%;
+}
+
+.Search-field-wrapper__field::placeholder {
+    visibility: hidden;
+}
+
+.Search-field-wrapper__field+label {
+    position: absolute;
+    left: 46px;
+    line-height: 46px;
+    vertical-align: middle;
+    cursor: text;
+}
+
+.Search-field-wrapper__field:not(:placeholder-shown)+label {
+    opacity: 0;
+}
