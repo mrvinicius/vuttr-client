@@ -76,25 +76,31 @@ class App extends Component {
 		return (
 			<div className="App">
 				<div className="container">
-					<header className="App__header">
-						<h1 className="h1-size white-text">VUTTR</h1>
-						<h2 className="h2-size white-text">Very Useful Tools to Remember</h2>
+					<header className="Header">
+						<h1 className="mb0 h1-size white-text">VUTTR</h1>
+						<h2 className="mt0 h2-size white-text">Very Useful Tools to Remember</h2>
 
-						<div className="App__header-controls">
-							<div className="Search-field-wrapper">
-								<input className="Search-field-wrapper__field" type="search" name="search" id="search"
-									placeholder="search" onInput={e => this.searchTool(e.target.value)} />
-								<label htmlFor="search">search</label>
+						<div className="Header__header-controls">
+							<div className="Header__search-controls">
+								<div className="Search-field-wrapper">
+									<input className="Search-field-wrapper__field" type="search" name="search" id="search"
+										placeholder="search" onInput={e => this.searchTool(e.target.value)} />
+									<label htmlFor="search">search</label>
+								</div>
+
+								<div className="mt12px">
+									<input type="checkbox" name="searchInTag" id="searchInTags"
+										onChange={e => this.setState({ searchInTags: e.target.checked })} />
+									<label className="white-text" htmlFor="searchInTags">search in tags only</label>
+								</div>
 							</div>
 
-
-							<input type="checkbox" name="searchInTag" id="searchInTags"
-								onChange={e => this.setState({ searchInTags: e.target.checked })} />
-							<label className="white-text" htmlFor="searchInTags">search in tags only</label>
-
-							<button className="button add-button" onClick={_ => this.setState({ addModalIsOpen: true })}>
-								<img className="button__icon" src="/plus.svg" alt="Add Icon"/>
+							<button className="button grow-gradient hide-above-600px" onClick={_ => this.setState({ addModalIsOpen: true })}>
+								<img className="button__icon" src="/plus.svg" alt="Add Icon" />
 								Add
+							</button>
+							<button className="button-float grow-gradient show-below-601px" onClick={_ => this.setState({ addModalIsOpen: true })}>
+								<img className="button__icon" src="/plus.svg" alt="Add Icon" />
 							</button>
 						</div>
 					</header>

@@ -44,19 +44,8 @@ a {
 
 .container {
 	margin: 0 auto;
-	width: 50%;
-}
-
-@media only screen and (max-width: 1000px) {
-	.container {
-		width: 76%;
-	}
-}
-
-@media only screen and (max-width: 600px) {
-	.container {
-		width: 94%;
-	}
+	width: 70%;
+	max-width: 960px;
 }
 
 label {
@@ -86,8 +75,43 @@ input[type="checkbox"]:checked::after {
 
 input[type="checkbox"]+label {
 	padding-left: 12px;
+	vertical-align: top;
 }
 
 button {
 	border: none;
+}
+
+.mb0 {
+	margin-bottom: 0;
+}
+
+.mt0 {
+	margin-top: 0;
+}
+
+.mt12px {
+	margin-top: 12px;
+}
+
+@media only screen and (max-width: 900px) {
+	.container {
+		width: 82%;
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	.container {
+		width: 94%;
+	}
+	.hide-above-600px {
+		display: none !important;
+	}
+
+}
+
+@media only screen and (min-width: 601px) {
+	.show-below-601px {
+		display: none;
+	}
 }
