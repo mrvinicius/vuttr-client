@@ -76,7 +76,7 @@ class App extends Component {
 		return (
 			<div className="App">
 				<div className="container">
-					<header className="Header">
+					<header className="Header dark-purple-bg">
 						<h1 className="mb0 h1-size white-text">VUTTR</h1>
 						<h2 className="mt0 h2-size white-text">Very Useful Tools to Remember</h2>
 

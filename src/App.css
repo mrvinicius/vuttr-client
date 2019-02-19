@@ -1,4 +1,7 @@
-/* .Header {} */
+.Header {
+    position: sticky;
+    top: 0;
+}
 
 .Header__header-controls {
     display: flex;
