@@ -3,12 +3,49 @@
     top: 0;
 }
 
+.Header--shortened {
+    
+}
+
+.Tool-list {
+    margin-top: 90px;
+}
+
+.heading-1 {
+    margin-top: 50px;
+}
+
+.heading-2 {
+    transition:
+        transform 150ms linear 0ms,
+        opacity 150ms linear 0ms;
+}
+
+.Header--shortened .heading-2 {
+    transform: translateY(-50px);
+    opacity: 0;
+}
+
 .Header__header-controls {
+    position: absolute;
+    /* top: -50px; */
+    z-index: 2;
+    /* transform: translateY(140px); */
+
     display: flex;
     flex-wrap: wrap;
+    margin-top: 20px;
+    width: 100%;
+
+    transition:
+        transform 150ms linear 0ms;
 
     flex-direction: column;
     align-items: baseline;
+}
+
+.Header--shortened .Header__header-controls {
+    transform: translateY(-50px);
 }
 
 .button {
@@ -46,6 +83,7 @@
 }
 
 .Header__header-controls .button {
+    align-self: end;
     margin-left: auto;
 }
 

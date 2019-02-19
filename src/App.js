@@ -29,9 +29,18 @@ class App extends Component {
 		this.setState(prevState => ({ tools: [...prevState.tools, ...tools] }));
 	}
 
-	async componentDidMount() {
-		const tools = await toolApi.getAll();
-		this.addToolsInState(...tools);
+	componentDidMount() {
+		toolApi.getAll().then(tools => this.addToolsInState(...tools));
+
+		const header = document.querySelector('.App .Header');
+
+		document.addEventListener('scroll', e => {
+			console.log(window.pageYOffset);
+			header.classList.toggle('Header--shortened', window.pageYOffset > 50)
+			// if (window.pageYOffset > 50) {
+			// 	h2Element.classList.add('hidden-title');
+			// }
+		});
 	}
 
 	closeRemovalConfirmDialog() {
@@ -77,10 +86,12 @@ class App extends Component {
 			<div className="App">
 				<div className="container">
 					<header className="Header dark-purple-bg">
-						<h1 className="mb0 h1-size white-text">VUTTR</h1>
-						<h2 className="mt0 h2-size white-text">Very Useful Tools to Remember</h2>
+						<div className="">
+							<h1 className="mb0 heading-1 h1-size white-text">VUTTR</h1>
+							<h2 className="m0 heading-2 h2-size white-text">Very Useful Tools to Remember</h2>
+						</div>
 
-						<div className="Header__header-controls">
+						<div className="Header__header-controls dark-purple-bg">
 							<div className="Header__search-controls">
 								<div className="Search-field-wrapper">
 									<input className="Search-field-wrapper__field" type="search" name="search" id="search"
@@ -99,16 +110,18 @@ class App extends Component {
 								<img className="button__icon" src="/plus.svg" alt="Add Icon" />
 								Add
 							</button>
-							<button className="button-float grow-gradient show-below-601px" onClick={_ => this.setState({ addModalIsOpen: true })}>
-								<img className="button__icon" src="/plus.svg" alt="Add Icon" />
-							</button>
 						</div>
 					</header>
-					{
-						this.state.tools && this.state.tools.length
-							? <ToolList tools={this.state.tools} remove={this.openRemovalConfirmDialog} />
-							: <Spinner />
-					}
+					<button className="button-float grow-gradient show-below-601px" onClick={_ => this.setState({ addModalIsOpen: true })}>
+						<img className="button__icon" src="/plus.svg" alt="Add Icon" />
+					</button>
+					<section className="Tool-list">
+						{
+							this.state.tools && this.state.tools.length
+								? <ToolList tools={this.state.tools} remove={this.openRemovalConfirmDialog} />
+								: <Spinner />
+						}
+					</section>
 
 					<NewToolModalContainer
 						isOpen={this.state.addModalIsOpen}
