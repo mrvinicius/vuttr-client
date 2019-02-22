@@ -48,7 +48,7 @@ a {
 
 .container {
 	margin: 0 auto;
-	width: 70%;
+	width: 55%;
 	max-width: 960px;
 }
 
@@ -79,7 +79,7 @@ input[type="checkbox"]:checked::after {
 
 input[type="checkbox"]+label {
 	padding-left: 12px;
-	vertical-align: top;
+	vertical-align: super;
 }
 
 button {
@@ -100,6 +100,18 @@ button {
 
 .mt12px {
 	margin-top: 12px;
+}
+
+.mr25px {
+	margin-right: 25px;
+}
+
+.mr20px {
+	margin-right: 20px;
+}
+
+.mb5px {
+	margin-bottom: 5px;
 }
 
 @media only screen and (max-width: 900px) {

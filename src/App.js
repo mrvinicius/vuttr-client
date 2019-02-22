@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 
 import './App.css';
 import toolApi from './server-api';
+import Header from './header/Header';
 import ToolList from './tool-list/Tool-list';
 import Spinner from './spinner/Spinner';
 import NewToolModalContainer from './new-tool-modal/New-tool-modal.container';
-import Modal from './modal/Modal';
+import RemovalConfirmDialog from './removal-dialog/Removal-dialog';
 
 class App extends Component {
 	state = {
@@ -13,13 +14,15 @@ class App extends Component {
 		addModalIsOpen: false,
 		removalConfirmDialogIsOpen: false,
 		toolToBeRemoved: null,
-		searchInTags: false
+		searchInTags: false,
+		lastSearchText: ''
 	}
 
 	constructor(params) {
 		super(params);
 		this.addToolsInState = this.addToolsInState.bind(this);
 		this.closeRemovalConfirmDialog = this.closeRemovalConfirmDialog.bind(this);
+		this.onSearchInTagsChange = this.onSearchInTagsChange.bind(this);
 		this.openRemovalConfirmDialog = this.openRemovalConfirmDialog.bind(this);
 		this.removeTool = this.removeTool.bind(this);
 		this.searchTool = this.searchTool.bind(this);
@@ -35,11 +38,7 @@ class App extends Component {
 		const header = document.querySelector('.App .Header');
 
 		document.addEventListener('scroll', e => {
-			console.log(window.pageYOffset);
-			header.classList.toggle('Header--shortened', window.pageYOffset > 50)
-			// if (window.pageYOffset > 50) {
-			// 	h2Element.classList.add('hidden-title');
-			// }
+			header.classList.toggle('Header--shortened', window.pageYOffset > 50);
 		});
 	}
 
@@ -47,6 +46,14 @@ class App extends Component {
 		this.setState({
 			removeModalIsOpen: false,
 			toolToBeRemoved: null
+		});
+	}
+
+	onSearchInTagsChange(checked) {
+		this.setState({ searchInTags: checked }, _ => {
+			if (this.state.lastSearchText) {
+				this.searchTool(this.state.lastSearchText);
+			}
 		});
 	}
 
@@ -78,6 +85,7 @@ class App extends Component {
 			tools = await toolApi.search(text.trim());
 		}
 
+		this.setState({ lastSearchText: text })
 		this.setState({ tools });
 	}
 
@@ -85,33 +93,10 @@ class App extends Component {
 		return (
 			<div className="App">
 				<div className="container">
-					<header className="Header dark-purple-bg">
-						<div className="">
-							<h1 className="mb0 heading-1 h1-size white-text">VUTTR</h1>
-							<h2 className="m0 heading-2 h2-size white-text">Very Useful Tools to Remember</h2>
-						</div>
-
-						<div className="Header__header-controls dark-purple-bg">
-							<div className="Header__search-controls">
-								<div className="Search-field-wrapper">
-									<input className="Search-field-wrapper__field" type="search" name="search" id="search"
-										placeholder="search" onInput={e => this.searchTool(e.target.value)} />
-									<label htmlFor="search">search</label>
-								</div>
-
-								<div className="mt12px">
-									<input type="checkbox" name="searchInTag" id="searchInTags"
-										onChange={e => this.setState({ searchInTags: e.target.checked })} />
-									<label className="white-text" htmlFor="searchInTags">search in tags only</label>
-								</div>
-							</div>
-
-							<button className="button grow-gradient hide-above-600px" onClick={_ => this.setState({ addModalIsOpen: true })}>
-								<img className="button__icon" src="/plus.svg" alt="Add Icon" />
-								Add
-							</button>
-						</div>
-					</header>
+					<Header
+						searchTool={this.searchTool}
+						onSearchInTagsChange={this.onSearchInTagsChange}
+						onAddClick={_ => this.setState({ addModalIsOpen: true })} />
 					<button className="button-float grow-gradient show-below-601px" onClick={_ => this.setState({ addModalIsOpen: true })}>
 						<img className="button__icon" src="/plus.svg" alt="Add Icon" />
 					</button>
@@ -138,15 +123,5 @@ class App extends Component {
 		);
 	}
 }
-
-const RemovalConfirmDialog = props => (
-	<Modal {...props} header={<h2>Remove tool</h2>}>
-		<p>Are you sure you want to remove <b>{props.tool && props.tool.title}</b>?</p>
-		<div className="Modal__actions">
-			<button onClick={props.close}>Cancel</button>
-			<button onClick={_ => props.remove(props.tool.id)}>Yes, Remove</button>
-		</div>
-	</Modal>
-);
 
 export default App;
