@@ -8,6 +8,7 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 	background-color: #4C4499;
 	font-size: 18px;
+	color: #170C3A;
 }
 
 code {
@@ -40,6 +41,14 @@ textarea {
 
 .white-text {
 	color: #fff;
+}
+
+.red-text {
+	color: #F95E5A;
+}
+
+.fw600 {
+	font-weight: 600;
 }
 
 a {
@@ -128,7 +137,6 @@ button {
 	.hide-above-600px {
 		display: none !important;
 	}
-
 }
 
 @media only screen and (min-width: 601px) {

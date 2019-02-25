@@ -1,0 +1,24 @@
+.Tool-item {
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0.5px 3px 2px 0px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+.Tool-item__header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.Tool-item__header .button-flat {
+    align-self: baseline;
+}
+
+.Tool-item__title {
+    margin: 0;
+    word-break: break-word;
+}
+
+.Tool-description {
+    margin-top: 0.4em;
+}

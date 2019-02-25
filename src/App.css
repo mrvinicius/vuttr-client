@@ -1,16 +1,7 @@
-.Tool-list {
-    /* Fallback */
-    margin-top: 120px;
-    margin-top: calc(100px + 5vh);
-}
-
 .button {
-    display: flex;
-    align-items: center;
     border-radius: 100px;
     padding: 0em 1.6em;
     height: 46px;
-    font-weight: 600;
 }
 
 .button-float {
@@ -24,8 +15,27 @@
     height: 56px;
 }
 
-.button .button__icon {
-    margin-right: 5px;
+.button-flat {
+    padding: 0;
+    background-color: transparent;
+}
+
+.button,
+.button-flat {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+}
+
+.button,
+.button-flat,
+.button-float {
+    cursor: pointer;
+}
+
+.button .button__icon,
+.button-flat .button__icon {
+    margin-right: 0.3em;
 }
 
 .button-float .button__icon {

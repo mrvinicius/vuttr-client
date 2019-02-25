@@ -10,7 +10,7 @@ const Header = ({ searchTool, onSearchInTagsChange, onAddClick }) => (
         </div>
 
         <div className="Header__header-controls dark-purple-bg">
-            <div className="Header__search-controls">
+            <div className="Header__search-controls mb5px">
                 <div className="Search-field-wrapper mr20px">
                     <input className="Search-field-wrapper__field"
                         type="search" name="search" id="search"
@@ -19,7 +19,7 @@ const Header = ({ searchTool, onSearchInTagsChange, onAddClick }) => (
                     <label htmlFor="search">search</label>
                 </div>
 
-                <div className="mt12px mr25px mb5px">
+                <div className="mt12px mr25px">
                     <input type="checkbox" name="searchInTag" id="searchInTags"
                         onChange={e => onSearchInTagsChange(e.target.checked)} />
                     <label className="white-text" htmlFor="searchInTags">search in tags only</label>
