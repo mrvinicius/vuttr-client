@@ -28,12 +28,13 @@ code {
 
 .form-group {
 	position: relative;
+	margin-bottom: 0.75rem;
 }
 
 .form-group input[type=text],
-input[type=url],
-select,
-textarea {
+.form-group input[type=url],
+.form-group select,
+.form-group textarea {
 	width: 100%;
 }
 
@@ -43,6 +44,10 @@ textarea {
 
 .h2-size {
 	font-size: 36px;
+}
+
+.green-bg {
+	background-color: #12DB89;
 }
 
 .dark-purple-bg {
@@ -83,13 +88,13 @@ input[type="text"] {
 input[type="text"],
 textarea {
 	border-radius: 3px;
-	/* background: rgba(0, 0, 0, 0.02); */
-	border: 1px solid rgba(0, 0, 0, 0.3);
+	background-color: rgba(0, 0, 0, 0.02);
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	padding: 0 8px;
 }
 
-textarea {
-	min-width: 100%;
-	max-width: 100%;
+textarea.disable-resize {
+	resize: none;
 }
 
 input[type="checkbox"] {

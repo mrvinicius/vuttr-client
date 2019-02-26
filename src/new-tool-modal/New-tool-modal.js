@@ -3,30 +3,35 @@ import React from 'react';
 import Modal from '../modal/Modal';
 
 const NewToolModal = props => (
-    <Modal {...props} header={<h2>Add new tool</h2>}>
-        <form onSubmit={props.handleSubmit}>
+    <Modal {...props} header={
+        <>
+            <img className="Modal__header-icon" src="/plus.svg" alt="Add Icon" />
+            <h2 className="Modal__title">Add new tool</h2>
+        </>
+    }>
+        <form autoComplete="off" onSubmit={props.handleSubmit}>
             <span>{props.errors.formMessage ? props.errors.formMessage : null}</span>
 
             <div className="form-group">
                 <label htmlFor="name">Tool name</label>
-                <input type="text" name="title" id="title" />
+                <input autoComplete="off" type="text" name="title" id="title" />
                 <span>{props.errors.title ? props.errors.title.message : null}</span>
             </div>
 
             <div className="form-group">
                 <label htmlFor="link">Tool link</label>
-                <input type="text" name="link" id="link" />
+                <input autoComplete="off" type="text" name="link" id="link" />
                 <span>{props.errors.link ? props.errors.link.message : null}</span>
             </div>
 
             <div className="form-group">
                 <label htmlFor="description">Tool description</label>
-                <textarea name="description" id="description"></textarea>
+                <textarea autoComplete="off" className="disable-resize" rows="4" name="description" id="description"></textarea>
             </div>
 
             <div className="form-group">
                 <label htmlFor="tags">Tags</label>
-                <input type="text" name="tags" id="tags"
+                <input autoComplete="off" type="text" name="tags" id="tags"
                     onKeyDown={handleTagKeyDown(props.addTag)} />
             </div>
 
@@ -35,7 +40,10 @@ const NewToolModal = props => (
             </div>
 
             <div className="Modal__actions">
-                <button type="submit">Add tool</button>
+                <button className="button green-bg">
+                    Add
+                </button>
+                {/* <button type="submit">Add tool</button> */}
             </div>
         </form>
     </Modal>

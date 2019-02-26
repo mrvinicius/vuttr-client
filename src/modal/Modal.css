@@ -1,9 +1,9 @@
 .modal-overlay {
     position: fixed;
     top: 0;
-    right: 0;
-    bottom: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -18,21 +18,32 @@
     padding: 20px;
     border-radius: 2px;
     width: 450px;
-    max-width: 100%;
+    max-width: 94%;
     min-width: 300px;
+    max-height: 95vh;
+    overflow: auto;
     background-color: #fff;
-    box-shadow: 0 24px 38px 3px rgba(0,0,0,0.14), 0 9px 46px 8px rgba(0,0,0,0.12), 0 11px 15px -7px rgba(0,0,0,0.2);
+    box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12), 0 11px 15px -7px rgba(0, 0, 0, 0.2);
 }
 
 .Modal__header {
-
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 26px;
 }
 
-.Modal__header :first-child {
-    margin-top: 0;
+.Modal__header-icon {
+    margin-right: 10px;
+    font-size: 1em;
+}
+
+.Modal__title {
+    margin: 0;
+    font-size: 1em;
 }
 
 .Modal__actions {
-    padding-top: 20px;
+    padding-top: 10px;
     text-align: right;
 }

@@ -107,11 +107,13 @@ class App extends Component {
 						searchTool={this.searchTool}
 						onSearchInTagsChange={this.onSearchInTagsChange}
 						onAddClick={_ => this.setState({ addModalIsOpen: true })} />
+
 					<button className={`button-float grow-gradient show-below-601px
-						${this.state.showAddFloatBtn ? null : 'button-float--hide'}`}
+						${this.state.showAddFloatBtn ? '' : 'button-float--hide'}`}
 						onClick={_ => this.setState({ addModalIsOpen: true })}>
 						<img className="button__icon" src="/plus.svg" alt="Add Icon" />
 					</button>
+					
 					<section className="Tool-list">
 						{
 							this.state.tools && this.state.tools.length
