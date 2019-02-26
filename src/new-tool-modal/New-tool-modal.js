@@ -40,10 +40,7 @@ const NewToolModal = props => (
             </div>
 
             <div className="Modal__actions">
-                <button className="button green-bg">
-                    Add
-                </button>
-                {/* <button type="submit">Add tool</button> */}
+                <button className="button green-bg">Add</button>
             </div>
         </form>
     </Modal>

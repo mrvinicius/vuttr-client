@@ -13,25 +13,11 @@ class NewToolModalContainer extends Component {
     constructor(props) {
         super(props);
         this.addTag = this.addTag.bind(this);
-        this.handleEscPress = this.handleEscPress.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     addTag(tag) {
         this.setState(prevState => ({ tags: [...prevState.tags, tag] }));
-    }
-
-    componentDidMount() {
-        document.addEventListener("keydown", this.handleEscPress, false);
-    }
-    componentWillUnmount() {
-        document.removeEventListener("keydown", this.handleEscPress, false);
-    }
-
-    handleEscPress(event) {
-        if (event.keyCode === 27 && this.props.isOpen) {
-            this.props.close();
-        }
     }
 
     async handleSubmit(event) {
