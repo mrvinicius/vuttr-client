@@ -14,11 +14,11 @@ export default class Modal extends Component {
         document.addEventListener("keydown", this.handleEscPress, false);
     }
     componentWillUnmount() {
-        document.removeEventListener("keydown", this.handleEscPress, false);
+        document.removeEventListener("keydown", this.handleEscPress, false);        
     }
 
     handleEscPress(event) {
-        if (event.keyCode === 27) {
+        if (event.keyCode === 27 && this.props.isOpen) {
             this.props.close();
         }
     }
@@ -47,16 +47,5 @@ export default class Modal extends Component {
                 </div>
             </div>
         );
-    }
-}
-
-
-// const Modal = ({ header, children, actions, isOpen, close }) => (
-
-// );
-
-function getExitHandler(callback) {
-    return event => {
-
     }
 }

@@ -14,6 +14,7 @@ class App extends Component {
 		showAddFloatBtn: true,
 		addModalIsOpen: false,
 		removalConfirmDialogIsOpen: false,
+		bodyScrollEnabled: true,
 		toolToBeRemoved: null,
 		searchInTags: false,
 		lastSearchText: ''
@@ -27,6 +28,7 @@ class App extends Component {
 		this.openRemovalConfirmDialog = this.openRemovalConfirmDialog.bind(this);
 		this.removeTool = this.removeTool.bind(this);
 		this.searchTool = this.searchTool.bind(this);
+		this.toggleBodyScroll = this.toggleBodyScroll.bind(this);
 	}
 
 	addToolsInState(...tools) {
@@ -57,6 +59,7 @@ class App extends Component {
 			removeModalIsOpen: false,
 			toolToBeRemoved: null
 		});
+		this.toggleBodyScroll();
 	}
 
 	onSearchInTagsChange(checked) {
@@ -75,6 +78,7 @@ class App extends Component {
 			},
 			removeModalIsOpen: true
 		});
+		this.toggleBodyScroll();
 	}
 
 	removeTool(id) {
@@ -99,6 +103,15 @@ class App extends Component {
 		this.setState({ tools });
 	}
 
+	toggleBodyScroll() {
+		console.log(!this.state.bodyScrollEnabled);
+		
+		this.setState({ bodyScrollEnabled: !this.state.bodyScrollEnabled }, _ => {
+			document.body.style.overflowY =
+				this.state.bodyScrollEnabled ? 'auto' : 'hidden';
+		});
+	}
+
 	render() {
 		return (
 			<div className="App">
@@ -106,14 +119,21 @@ class App extends Component {
 					<Header
 						searchTool={this.searchTool}
 						onSearchInTagsChange={this.onSearchInTagsChange}
-						onAddClick={_ => this.setState({ addModalIsOpen: true })} />
+						onAddClick={_ => {
+							this.setState({ addModalIsOpen: true });
+							this.toggleBodyScroll();
+						}} />
 
 					<button className={`button-float grow-gradient show-below-601px
 						${this.state.showAddFloatBtn ? '' : 'button-float--hide'}`}
-						onClick={_ => this.setState({ addModalIsOpen: true })}>
+						onClick={_ => {
+							this.setState({ addModalIsOpen: true });
+							this.toggleBodyScroll();
+						}}>
+
 						<img className="button__icon" src="/plus.svg" alt="Add Icon" />
 					</button>
-					
+
 					<section className="Tool-list">
 						{
 							this.state.tools && this.state.tools.length
@@ -124,7 +144,10 @@ class App extends Component {
 
 					<NewToolModalContainer
 						isOpen={this.state.addModalIsOpen}
-						close={_ => this.setState({ addModalIsOpen: false })}
+						close={_ => {
+							this.setState({ addModalIsOpen: false });
+							this.toggleBodyScroll();
+						}}
 						addToolsInState={this.addToolsInState} />
 
 					<RemovalConfirmDialog
