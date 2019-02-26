@@ -1,13 +1,16 @@
 .Header {
     position: sticky;
     top: 0;
+    margin-bottom: 50px;
 }
 
 .heading-1 {
     margin-top: 12vh;
+    padding-top: 10px;
 }
 
 .heading-2 {
+    line-height: 1;
     transition:
         transform 150ms linear 0ms,
         opacity 150ms linear 0ms;
@@ -20,10 +23,10 @@
 }
 
 .Header__header-controls {
-    position: absolute;
+    position: relative;
+    bottom: -50px;
     z-index: 2;
     display: flex;
-    margin-top: 35px;
     width: 100%;
 
     transition:

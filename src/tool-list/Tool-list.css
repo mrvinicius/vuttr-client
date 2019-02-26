@@ -1,10 +1,11 @@
 .Tool-list {
-    /* Fallback */
-    margin-top: 120px;
-    margin-top: calc(100px + 5vh);
-    padding: 0 1px;
+    padding: 0 2px;
 }
 
 .Tool-list .Tool-item {
     margin-bottom: 30px;
+}
+
+.Tool-list .Tool-item:last-child {
+    margin-bottom: 40px;
 }
