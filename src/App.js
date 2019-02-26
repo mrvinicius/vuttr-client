@@ -11,6 +11,7 @@ import RemovalConfirmDialog from './removal-dialog/Removal-dialog';
 class App extends Component {
 	state = {
 		tools: [],
+		showAddFloatBtn: true,
 		addModalIsOpen: false,
 		removalConfirmDialogIsOpen: false,
 		toolToBeRemoved: null,
@@ -36,9 +37,18 @@ class App extends Component {
 		toolApi.getAll().then(tools => this.addToolsInState(...tools));
 
 		const header = document.querySelector('.App .Header');
+		let lastScrollTop = window.pageYOffset;
 
 		document.addEventListener('scroll', e => {
 			header.classList.toggle('Header--shortened', window.pageYOffset > 50);
+
+			if (window.pageYOffset > lastScrollTop) {
+				this.setState({ showAddFloatBtn: false });
+			} else {
+				this.setState({ showAddFloatBtn: true });
+			}
+
+			lastScrollTop = window.pageYOffset;
 		});
 	}
 
@@ -97,7 +107,9 @@ class App extends Component {
 						searchTool={this.searchTool}
 						onSearchInTagsChange={this.onSearchInTagsChange}
 						onAddClick={_ => this.setState({ addModalIsOpen: true })} />
-					<button className="button-float grow-gradient show-below-601px" onClick={_ => this.setState({ addModalIsOpen: true })}>
+					<button className={`button-float grow-gradient show-below-601px
+						${this.state.showAddFloatBtn ? null : 'button-float--hide'}`}
+						onClick={_ => this.setState({ addModalIsOpen: true })}>
 						<img className="button__icon" src="/plus.svg" alt="Add Icon" />
 					</button>
 					<section className="Tool-list">
