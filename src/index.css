@@ -26,6 +26,10 @@ code {
 		monospace;
 }
 
+button {
+	color: #170C3A;
+}
+
 .form-group {
 	position: relative;
 	margin-bottom: 0.75rem;
@@ -79,6 +83,10 @@ code {
 
 .dark-purple-bg {
 	background-color: #4C4499;
+}
+
+.red-bg {
+	background-color: #F95E5A;
 }
 
 .white-text {

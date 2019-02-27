@@ -41,9 +41,14 @@
 .Modal__title {
     margin: 0;
     font-size: 1em;
+    line-height: 1;
 }
 
 .Modal__actions {
     padding-top: 10px;
     text-align: right;
+}
+
+.Modal__actions > :first-child:not(:only-child) {
+    margin-right: 1rem;
 }
