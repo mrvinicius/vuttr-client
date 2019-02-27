@@ -6,32 +6,21 @@ import NewToolModal from './New-tool-modal';
 
 class NewToolModalContainer extends Component {
     state = {
-        tags: [],
         errors: {}
     }
 
     constructor(props) {
         super(props);
-        this.addTag = this.addTag.bind(this);
-        this.handleEscPress = this.handleEscPress.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.close = this.close.bind(this);
     }
 
-    addTag(tag) {
-        this.setState(prevState => ({ tags: [...prevState.tags, tag] }));
-    }
-
-    componentDidMount() {
-        document.addEventListener("keydown", this.handleEscPress, false);
-    }
-    componentWillUnmount() {
-        document.removeEventListener("keydown", this.handleEscPress, false);
-    }
-
-    handleEscPress(event) {
-        if (event.keyCode === 27 && this.props.isOpen) {
-            this.props.close();
-        }
+    close() {
+        const openedModal =
+            window.document.querySelector('.modal-overlay.open');
+        this.setState({ errors: {} });
+        this.props.close();
+        resetFormsWithin(openedModal);
     }
 
     async handleSubmit(event) {
@@ -41,7 +30,7 @@ class NewToolModalContainer extends Component {
             title: form.title.value,
             link: setHttp(form.link.value),
             description: form.description.value,
-            tags: this.state.tags
+            tags: form.tags.value.trim().split(' ')
         };
         const errors = validateTool(tool);
 
@@ -49,26 +38,30 @@ class NewToolModalContainer extends Component {
             this.setState({ errors });
             return;
         }
-        
+
         try {
             const addedTool = await toolApi.add(tool);
             this.props.addToolsInState(addedTool);
-            form.reset();
             this.props.close();
+            this.setState({ errors: {} });
+            form.reset();
         } catch (error) {
-            this.setState({ errors: { formMessage: error.message } });            
+            this.setState({ errors: { formMessage: error.message } });
         }
     }
 
     render() {
         return (
             <NewToolModal {...this.props}
-                tags={this.state.tags}
-                addTag={this.addTag}
+                close={this.close}
                 handleSubmit={this.handleSubmit}
                 errors={this.state.errors} />
         );
     }
+}
+
+function resetFormsWithin(parentElement) {
+    parentElement.querySelectorAll('form').forEach(form => form.reset());
 }
 
 function setHttp(url) {

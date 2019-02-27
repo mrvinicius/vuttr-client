@@ -1,0 +1,11 @@
+.Tool-list {
+    padding: 0 2px;
+}
+
+.Tool-list .Tool-item {
+    margin-bottom: 30px;
+}
+
+.Tool-list .Tool-item:last-child {
+    margin-bottom: 40px;
+}

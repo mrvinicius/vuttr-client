@@ -1,29 +1,44 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import './Modal.css';
 
-const Modal = ({ header, children, actions, isOpen, close }) => (
-    <div className={`modal-overlay ${isOpen ? 'open' : ''}`} onClick={getExitHandler(close)}>
-        <div className="Modal">
-            <div className="Modal__header">
-                {header}
-            </div>
-            <div className="Modal__content">
-                {children}
-            </div>
-            {actions ? <div className="Modal__actions">
-                {actions}
-            </div> : null}
-        </div>
-    </div>
-);
+export default class Modal extends Component {
+    componentDidMount() {
+        document.addEventListener("keydown", this.handleEscPress, false);
+    }
+    componentWillUnmount() {
+        document.removeEventListener("keydown", this.handleEscPress, false);        
+    }
 
-function getExitHandler(callback) {
-    return event => {
-        if (event.target === event.currentTarget) {
-            callback()
+    handleEscPress = event => {
+        if (event.keyCode === 27 && this.props.isOpen) {
+            this.props.close();
         }
     }
-}
 
-export default Modal;
+    handleOverlayClick(event) {
+        if (event.target === event.currentTarget) {
+            this.props.close();
+        }
+    }
+
+    render() {
+        return (
+            <div className={`modal-overlay ${this.props.isOpen ? 'open' : ''}`}
+                onClick={e => this.handleOverlayClick(e)}>
+
+                <div className="Modal">
+                    <div className="Modal__header">
+                        {this.props.header}
+                    </div>
+                    <div className="Modal__content">
+                        {this.props.children}
+                    </div>
+                    {this.props.actions ? <div className="Modal__actions">
+                        {this.props.actions}
+                    </div> : null}
+                </div>
+            </div>
+        );
+    }
+}

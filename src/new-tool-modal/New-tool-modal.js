@@ -3,55 +3,57 @@ import React from 'react';
 import Modal from '../modal/Modal';
 
 const NewToolModal = props => (
-    <Modal {...props} header={<h2>Add new tool</h2>}>
-        <form onSubmit={props.handleSubmit}>
+    <Modal {...props} header={
+        <>
+            <img className="Modal__header-icon" src="/plus.svg" alt="Add Icon" />
+            <h2 className="Modal__title">Add new tool</h2>
+        </>
+    }>
+        <form id="newToolModal" autoComplete="off" onSubmit={props.handleSubmit}>
             <span>{props.errors.formMessage ? props.errors.formMessage : null}</span>
 
             <div className="form-group">
+                <input autoComplete="off" type="text" name="title" id="title" />
                 <label htmlFor="name">Tool name</label>
-                <input type="text" name="title" id="title" />
-                <span>{props.errors.title ? props.errors.title.message : null}</span>
+                {props.errors.title ?
+                    <span className="red-text fz16px df">
+                        <img src="/alert-triangle.svg" alt="Alert Icon"
+                            className="mr5px"/>
+                        {props.errors.title.message}
+                    </span>
+                    : null
+                }
             </div>
 
             <div className="form-group">
+                <input autoComplete="off" type="text" name="link" id="link" />
                 <label htmlFor="link">Tool link</label>
-                <input type="text" name="link" id="link" />
-                <span>{props.errors.link ? props.errors.link.message : null}</span>
+                {props.errors.link ?
+                    <span className="red-text fz16px df">
+                        <img src="/alert-triangle.svg" alt="Alert Icon"
+                            className="mr5px"/>
+                        {props.errors.link.message}
+                    </span>
+                    : null
+                }
             </div>
 
             <div className="form-group">
+                <textarea autoComplete="off" className="disable-resize"
+                    rows="3" name="description" id="description"></textarea>
                 <label htmlFor="description">Tool description</label>
-                <textarea name="description" id="description"></textarea>
             </div>
 
             <div className="form-group">
+                <input autoComplete="off" type="text" name="tags" id="tags" />
                 <label htmlFor="tags">Tags</label>
-                <input type="text" name="tags" id="tags"
-                    onKeyDown={handleTagKeyDown(props.addTag)} />
-            </div>
-
-            <div>
-                {props.tags.map(tag => `${tag} `)}
             </div>
 
             <div className="Modal__actions">
-                <button type="submit">Add tool</button>
+                <button className="button green-bg">Add</button>
             </div>
         </form>
     </Modal>
 );
-
-function handleTagKeyDown(callback) {
-    const commaKeyCode = 188,
-        enterKeyCode = 13;
-
-    return (event) => {
-        if (event.keyCode === commaKeyCode || event.keyCode === enterKeyCode) {
-            event.preventDefault();
-            callback(event.target.value.trim());
-            event.target.value = "";
-        }
-    }
-}
 
 export default NewToolModal;
