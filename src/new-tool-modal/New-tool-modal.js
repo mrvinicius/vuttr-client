@@ -13,26 +13,41 @@ const NewToolModal = props => (
             <span>{props.errors.formMessage ? props.errors.formMessage : null}</span>
 
             <div className="form-group">
-                <label htmlFor="name">Tool name</label>
                 <input autoComplete="off" type="text" name="title" id="title" />
-                <span>{props.errors.title ? props.errors.title.message : null}</span>
+                <label htmlFor="name">Tool name</label>
+                {props.errors.title ?
+                    <span className="red-text fz16px df">
+                        <img src="/alert-triangle.svg" alt="Alert Icon"
+                            className="mr5px"/>
+                        {props.errors.title.message}
+                    </span>
+                    : null
+                }
             </div>
 
             <div className="form-group">
-                <label htmlFor="link">Tool link</label>
                 <input autoComplete="off" type="text" name="link" id="link" />
-                <span>{props.errors.link ? props.errors.link.message : null}</span>
+                <label htmlFor="link">Tool link</label>
+                {props.errors.link ?
+                    <span className="red-text fz16px df">
+                        <img src="/alert-triangle.svg" alt="Alert Icon"
+                            className="mr5px"/>
+                        {props.errors.link.message}
+                    </span>
+                    : null
+                }
             </div>
 
             <div className="form-group">
+                <textarea autoComplete="off" className="disable-resize"
+                    rows="3" name="description" id="description"></textarea>
                 <label htmlFor="description">Tool description</label>
-                <textarea autoComplete="off" className="disable-resize" rows="4" name="description" id="description"></textarea>
             </div>
 
             <div className="form-group">
-                <label htmlFor="tags">Tags</label>
                 <input autoComplete="off" type="text" name="tags" id="tags"
                     onKeyDown={handleTagKeyDown(props.addTag)} />
+                <label htmlFor="tags">Tags</label>
             </div>
 
             <div>
