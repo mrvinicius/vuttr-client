@@ -9,7 +9,7 @@ const NewToolModal = props => (
             <h2 className="Modal__title">Add new tool</h2>
         </>
     }>
-        <form autoComplete="off" onSubmit={props.handleSubmit}>
+        <form id="newToolModal" autoComplete="off" onSubmit={props.handleSubmit}>
             <span>{props.errors.formMessage ? props.errors.formMessage : null}</span>
 
             <div className="form-group">
@@ -45,13 +45,8 @@ const NewToolModal = props => (
             </div>
 
             <div className="form-group">
-                <input autoComplete="off" type="text" name="tags" id="tags"
-                    onKeyDown={handleTagKeyDown(props.addTag)} />
+                <input autoComplete="off" type="text" name="tags" id="tags" />
                 <label htmlFor="tags">Tags</label>
-            </div>
-
-            <div>
-                {props.tags.map(tag => `${tag} `)}
             </div>
 
             <div className="Modal__actions">
@@ -60,18 +55,5 @@ const NewToolModal = props => (
         </form>
     </Modal>
 );
-
-function handleTagKeyDown(callback) {
-    const commaKeyCode = 188,
-        enterKeyCode = 13;
-
-    return (event) => {
-        if (event.keyCode === commaKeyCode || event.keyCode === enterKeyCode) {
-            event.preventDefault();
-            callback(event.target.value.trim());
-            event.target.value = "";
-        }
-    }
-}
 
 export default NewToolModal;

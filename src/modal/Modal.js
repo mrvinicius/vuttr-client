@@ -3,13 +3,6 @@ import React, { Component } from 'react';
 import './Modal.css';
 
 export default class Modal extends Component {
-    constructor(props) {
-        super(props);
-
-        this.handleEscPress = this.handleEscPress.bind(this);
-        this.handleOverlayClick = this.handleOverlayClick.bind(this);
-    }
-
     componentDidMount() {
         document.addEventListener("keydown", this.handleEscPress, false);
     }
@@ -17,7 +10,7 @@ export default class Modal extends Component {
         document.removeEventListener("keydown", this.handleEscPress, false);        
     }
 
-    handleEscPress(event) {
+    handleEscPress = event => {
         if (event.keyCode === 27 && this.props.isOpen) {
             this.props.close();
         }

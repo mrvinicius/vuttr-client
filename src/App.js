@@ -104,8 +104,6 @@ class App extends Component {
 	}
 
 	toggleBodyScroll() {
-		console.log(!this.state.bodyScrollEnabled);
-		
 		this.setState({ bodyScrollEnabled: !this.state.bodyScrollEnabled }, _ => {
 			document.body.style.overflowY =
 				this.state.bodyScrollEnabled ? 'auto' : 'hidden';
