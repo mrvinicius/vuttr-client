@@ -19,7 +19,7 @@ const Header = ({ searchTool, onSearchInTagsChange, onAddClick }) => (
                     <label htmlFor="search">search</label>
                 </div>
 
-                <div className="mt12px mr25px">
+                <div className="mt12px mr25px mb-7px">
                     <input type="checkbox" name="searchInTag" id="searchInTags"
                         onChange={e => onSearchInTagsChange(e.target.checked)} />
                     <label className="white-text" htmlFor="searchInTags">search in tags only</label>

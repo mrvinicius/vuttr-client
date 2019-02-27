@@ -18,7 +18,6 @@
 
 .Header--shortened .heading-2 {
     transform: translateY(-50px);
-    /* white-space: nowrap; */
     opacity: 0;
 }
 
