@@ -135,7 +135,9 @@ class App extends Component {
 					<section className="Tool-list">
 						{
 							this.state.tools && this.state.tools.length
-								? <ToolList tools={this.state.tools} remove={this.openRemovalConfirmDialog} />
+								? <ToolList tools={this.state.tools}
+									remove={this.openRemovalConfirmDialog}
+									searchedTag={this.state.searchInTags ? this.state.lastSearchText.trim() : null}/>
 								: <Spinner />
 						}
 					</section>
