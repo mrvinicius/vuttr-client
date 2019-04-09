@@ -12,8 +12,8 @@ const ToolItem = ({ id, title, link, description, tags, remove, searchedTag }) =
                 Remove
             </button>
         </header>
-        <p className="Tool-description">{description}</p>
-        <section>
+        <p className="Tool-item__description">{description}</p>
+        <section className="Tool-item__tags">
             {searchedTag
                 ? tags.map((tag, index) => {
                     const matchedTag = 

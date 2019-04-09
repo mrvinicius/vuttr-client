@@ -19,6 +19,11 @@
     word-break: break-word;
 }
 
-.Tool-description {
+.Tool-item__description {
     margin-top: 0.4em;
+    line-height: 1.3;
+}
+
+.Tool-item__tags > * {
+    display: inline-block;
 }
