@@ -11,7 +11,7 @@ const RemovalConfirmDialog = props => (
 	}>
 		<p>Are you sure you want to remove <b>{props.tool && props.tool.title}</b>?</p>
 		<div className="Modal__actions">
-			<button className="button-flat"
+			<button className="button-flat grey-text"
 				onClick={props.close}>Cancel</button>
 			<button className="button red-bg white-text"
 				onClick={_ => props.remove(props.tool.id)}>Yes, Remove</button>
