@@ -18,7 +18,7 @@ const ToolItem = ({ id, title, link, description, tags, remove, searchedTag }) =
                 ? tags.map((tag, index) => {
                     const matchedTag = 
                         tag.split(searchedTag).reduce((prev, current) => {
-                            return <>{prev}<span class='highlight'>{searchedTag}</span>{current}</>
+                            return <>{prev}<span className='highlight'>{searchedTag}</span>{current}</>
                         });
 
                     return placeTags(matchedTag, index);

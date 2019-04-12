@@ -41,7 +41,7 @@ class NewToolModalContainer extends Component {
 
         try {
             const addedTool = await toolApi.add(tool);
-            this.props.addToolsInState(addedTool);
+            this.props.handleAddedTool(addedTool);
             this.props.close();
             this.setState({ errors: {} });
             form.reset();

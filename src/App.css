@@ -60,3 +60,41 @@
 .highlight {
     background-color: #FFBB43;
 }
+
+.notification-container {
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    right: 0;
+    width: 20%;
+    padding: 40px 20px 0;
+}
+
+.notification-container > .Notification {
+    margin-bottom: 1em;
+}
+
+.slide-up-enter {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 300ms, transform 300ms ease-out;
+}
+
+.slide-up-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.slide-up-exit {
+    opacity: 1;
+    /* transform: translateY(0); */
+    /* top: 0; */
+}
+
+.slide-up-exit-active {
+    opacity: 0;
+    transform: translateY(-40px);
+    /* top: -40px; */
+    transition: opacity 300ms, transform 300ms ease-out;
+    /* transition: opacity 300ms, top 300ms ease-out; */
+}

@@ -40,7 +40,7 @@
 }
 
 .Header__header-controls .button {
-    align-self: end;
+    align-self: baseline;
     margin-left: auto;
 }
 

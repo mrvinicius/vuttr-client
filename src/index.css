@@ -19,6 +19,10 @@ body {
 	background-color: #4C4499;
 	font-size: 18px;
 	color: #170C3A;
+
+	/* Avoid scrollbar jump when scroll is disabled */
+	width:100vw;
+	overflow-x: hidden;
 }
 
 code {
@@ -78,27 +82,31 @@ button {
 }
 
 .green-bg {
-	background-color: #12DB89;
+	background-color: #12DB89 !important;
 }
 
 .dark-purple-bg {
-	background-color: #4C4499;
+	background-color: #4C4499 !important;
 }
 
 .red-bg {
-	background-color: #F95E5A;
+	background-color: #F95E5A !important;
+}
+
+.green-text {
+	color: #12DB89 !important;
 }
 
 .white-text {
-	color: #fff;
+	color: #fff !important;
 }
 
 .red-text {
-	color: #F95E5A;
+	color: #F95E5A !important;
 }
 
 .grey-text {
-	color: #8F8A9B;
+	color: #8F8A9B !important;
 }
 
 .fz16px {

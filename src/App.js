@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import './App.css';
 import toolApi from './server-api';
@@ -7,6 +8,7 @@ import ToolList from './tool-list/Tool-list';
 import Spinner from './spinner/Spinner';
 import NewToolModalContainer from './new-tool-modal/New-tool-modal.container';
 import RemovalConfirmDialog from './removal-dialog/Removal-dialog';
+import Notification from './notification/Notification';
 
 class App extends Component {
 	state = {
@@ -17,21 +19,11 @@ class App extends Component {
 		bodyScrollEnabled: true,
 		toolToBeRemoved: null,
 		searchInTags: false,
-		lastSearchText: ''
+		lastSearchText: '',
+		notifications: []
 	}
 
-	constructor(params) {
-		super(params);
-		this.addToolsInState = this.addToolsInState.bind(this);
-		this.closeRemovalConfirmDialog = this.closeRemovalConfirmDialog.bind(this);
-		this.onSearchInTagsChange = this.onSearchInTagsChange.bind(this);
-		this.openRemovalConfirmDialog = this.openRemovalConfirmDialog.bind(this);
-		this.removeTool = this.removeTool.bind(this);
-		this.searchTool = this.searchTool.bind(this);
-		this.toggleBodyScroll = this.toggleBodyScroll.bind(this);
-	}
-
-	addToolsInState(...tools) {
+	addToolsInState = (...tools) => {
 		this.setState(prevState => ({ tools: [...prevState.tools, ...tools] }));
 	}
 
@@ -54,7 +46,7 @@ class App extends Component {
 		});
 	}
 
-	closeRemovalConfirmDialog() {
+	closeRemovalConfirmDialog = _ => {
 		this.setState({
 			removeModalIsOpen: false,
 			toolToBeRemoved: null
@@ -62,7 +54,7 @@ class App extends Component {
 		this.toggleBodyScroll();
 	}
 
-	onSearchInTagsChange(checked) {
+	onSearchInTagsChange = checked => {
 		this.setState({ searchInTags: checked }, _ => {
 			if (this.state.lastSearchText) {
 				this.searchTool(this.state.lastSearchText);
@@ -70,7 +62,7 @@ class App extends Component {
 		});
 	}
 
-	openRemovalConfirmDialog({ id, title }) {
+	openRemovalConfirmDialog = ({ id, title }) => {
 		this.setState({
 			toolToBeRemoved: {
 				id,
@@ -81,16 +73,16 @@ class App extends Component {
 		this.toggleBodyScroll();
 	}
 
-	removeTool(id) {
+	removeTool = id => {
 		toolApi.remove(id);
 		this.setState(prevState => ({
-			tools: prevState.tools.filter(t => t.id !== id)
+			tools: prevState.tools.filter(tool => tool.id !== id)
 		}));
 		this.closeRemovalConfirmDialog();
 		window.alert('The tool has been removed');
 	}
 
-	async searchTool(text) {
+	searchTool = async text => {
 		let tools;
 
 		if (this.state.searchInTags) {
@@ -103,16 +95,52 @@ class App extends Component {
 		this.setState({ tools });
 	}
 
-	toggleBodyScroll() {
+	toggleBodyScroll = _ => {
 		this.setState({ bodyScrollEnabled: !this.state.bodyScrollEnabled }, _ => {
 			document.body.style.overflowY =
 				this.state.bodyScrollEnabled ? 'auto' : 'hidden';
 		});
 	}
 
+	handleAddedTool = addedTool => {
+		this.addToolsInState(addedTool);
+		this.showNotification({
+			className: 'green-bg',
+			duration: 4000,
+			head:
+				<h2 className="white-text">
+					<strong>{addedTool.title}</strong> successfully added
+				</h2>,
+		})
+	}
+
+	showNotification = notification => {
+		this.setState(prevState =>
+			({ notifications: [...prevState.notifications, notification] }),
+			_ => setTimeout(this.removeNotification, notification.duration, notification)
+		);
+	}
+
+	removeNotification = notification => {
+		this.setState(prevState => ({
+			notifications: prevState.notifications
+				.filter(ntf => ntf != notification)
+		}));
+	}
+
 	render() {
 		return (
 			<div className="App">
+				<TransitionGroup component={'section'} className="notification-container">
+					{this.state.notifications.map((notification, index) =>
+						<CSSTransition
+							unmountOnExit
+							timeout={notification.duration}
+							classNames="slide-up" key={index}>
+							<Notification {...notification} key={index} index={index} />
+						</CSSTransition>
+					)}
+				</TransitionGroup>
 				<div className="container">
 					<Header
 						searchTool={this.searchTool}
@@ -120,7 +148,8 @@ class App extends Component {
 						onAddClick={_ => {
 							this.setState({ addModalIsOpen: true });
 							this.toggleBodyScroll();
-						}} />
+						}}
+					/>
 
 					<button className={`button-float grow-gradient show-below-601px
 						${this.state.showAddFloatBtn ? '' : 'button-float--hide'}`}
@@ -137,7 +166,7 @@ class App extends Component {
 							this.state.tools && this.state.tools.length
 								? <ToolList tools={this.state.tools}
 									remove={this.openRemovalConfirmDialog}
-									searchedTag={this.state.searchInTags ? this.state.lastSearchText.trim() : null}/>
+									searchedTag={this.state.searchInTags ? this.state.lastSearchText.trim() : null} />
 								: <Spinner />
 						}
 					</section>
@@ -148,7 +177,7 @@ class App extends Component {
 							this.setState({ addModalIsOpen: false });
 							this.toggleBodyScroll();
 						}}
-						addToolsInState={this.addToolsInState} />
+						handleAddedTool={this.handleAddedTool} />
 
 					<RemovalConfirmDialog
 						isOpen={this.state.removeModalIsOpen}
