@@ -79,7 +79,14 @@ class App extends Component {
 			tools: prevState.tools.filter(tool => tool.id !== id)
 		}));
 		this.closeRemovalConfirmDialog();
-		window.alert('The tool has been removed');
+		this.showNotification({
+			className: 'green-bg',
+			duration: 4000,
+			head:
+				<h2 className="white-text">
+					<strong>Tool</strong> removed
+				</h2>,
+		})
 	}
 
 	searchTool = async text => {
