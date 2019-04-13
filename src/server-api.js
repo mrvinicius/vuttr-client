@@ -11,8 +11,8 @@ async function add(tool) {
 }
 
 async function getAll() {
-    const { data } = await axiosInstance.get('/tools');
     await wait(1000);
+    const { data } = await axiosInstance.get('/tools');
     return data;
 }
 

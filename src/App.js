@@ -5,7 +5,6 @@ import './App.css';
 import toolApi from './server-api';
 import Header from './header/Header';
 import ToolList from './tool-list/Tool-list';
-import Spinner from './spinner/Spinner';
 import NewToolModalContainer from './new-tool-modal/New-tool-modal.container';
 import RemovalConfirmDialog from './removal-dialog/Removal-dialog';
 import Notification from './notification/Notification';
@@ -168,15 +167,11 @@ class App extends Component {
 						<img className="button__icon" src="/plus.svg" alt="Add Icon" />
 					</button>
 
-					<section className="Tool-list">
-						{
-							this.state.tools && this.state.tools.length
-								? <ToolList tools={this.state.tools}
-									remove={this.openRemovalConfirmDialog}
-									searchedTag={this.state.searchInTags ? this.state.lastSearchText.trim() : null} />
-								: <Spinner />
-						}
-					</section>
+
+					<ToolList tools={this.state.tools}
+						remove={this.openRemovalConfirmDialog}
+						searchedTag={this.state.searchInTags ? this.state.lastSearchText.trim() : null} />
+
 
 					<NewToolModalContainer
 						isOpen={this.state.addModalIsOpen}
