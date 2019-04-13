@@ -92,14 +92,10 @@
 
 .slide-up-exit {
     opacity: 1;
-    /* transform: translateY(0); */
-    /* top: 0; */
 }
 
 .slide-up-exit-active {
     opacity: 0;
     transform: translateY(-40px);
-    /* top: -40px; */
     transition: opacity 300ms, transform 300ms ease-out;
-    /* transition: opacity 300ms, top 300ms ease-out; */
 }
