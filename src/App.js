@@ -112,7 +112,7 @@ class App extends Component {
 		this.addToolsInState(addedTool);
 		this.showNotification({
 			className: 'green-bg',
-			duration: 4000,
+			duration: 40000,
 			head:
 				<h2 className="white-text">
 					<strong>{addedTool.title}</strong> successfully added
@@ -123,14 +123,14 @@ class App extends Component {
 	showNotification = notification => {
 		this.setState(prevState =>
 			({ notifications: [...prevState.notifications, notification] }),
-			_ => setTimeout(this.removeNotification, notification.duration, notification)
+			// _ => setTimeout(this.removeNotification, notification.duration, notification)
 		);
 	}
 
 	removeNotification = notification => {
 		this.setState(prevState => ({
 			notifications: prevState.notifications
-				.filter(ntf => ntf != notification)
+				.filter(ntf => ntf !== notification)
 		}));
 	}
 
