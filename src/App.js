@@ -123,7 +123,7 @@ class App extends Component {
 	showNotification = notification => {
 		this.setState(prevState =>
 			({ notifications: [...prevState.notifications, notification] }),
-			// _ => setTimeout(this.removeNotification, notification.duration, notification)
+			_ => setTimeout(this.removeNotification, notification.duration, notification)
 		);
 	}
 
