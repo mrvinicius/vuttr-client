@@ -23,16 +23,19 @@ class NewToolModalContainer extends Component {
         this.setState({ isSubmitDisabled: true });
 
         const form = event.target;
+        const value = form.tags.value.trim();
         const tool = {
             title: form.title.value,
             link: setHttp(form.link.value),
             description: form.description.value,
-            tags: form.tags.value.trim().split(' ')
+            tags: value ? value.split(' ') : []
         };
         const errors = validateTool(tool);
 
         if (Object.keys(errors).length) {
             this.setState({ errors });
+            this.setState({ isSubmitDisabled: false });
+
             return;
         }
 
@@ -44,6 +47,8 @@ class NewToolModalContainer extends Component {
             form.reset();
         } catch (error) {
             this.setState({ errors: { formMessage: error.message } });
+        } finally {
+            this.setState({ isSubmitDisabled: false });
         }
     }
 

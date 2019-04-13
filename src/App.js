@@ -144,7 +144,7 @@ class App extends Component {
 							unmountOnExit
 							timeout={notification.duration}
 							classNames="slide-up" key={index}>
-							<Notification {...notification} key={index} index={index} />
+							<Notification {...notification} key={index} />
 						</CSSTransition>
 					)}
 				</TransitionGroup>
