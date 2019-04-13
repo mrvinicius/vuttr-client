@@ -47,6 +47,11 @@
     vertical-align: middle;
 }
 
+[class^="button"]:disabled {
+    background-color: #DEDCE1 !important;
+    color: rgba(0, 0, 0, 0.4);
+}
+
 .grow-gradient {
     background: linear-gradient(110.82deg, #9BEB5D 0%, #12DB89 100%);
 }

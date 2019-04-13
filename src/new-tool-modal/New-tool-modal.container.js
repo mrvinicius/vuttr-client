@@ -6,16 +6,11 @@ import NewToolModal from './New-tool-modal';
 
 class NewToolModalContainer extends Component {
     state = {
-        errors: {}
+        errors: {},
+        isSubmitDisabled: false
     }
 
-    constructor(props) {
-        super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.close = this.close.bind(this);
-    }
-
-    close() {
+    close = _ => {
         const openedModal =
             window.document.querySelector('.modal-overlay.open');
         this.setState({ errors: {} });
@@ -23,8 +18,10 @@ class NewToolModalContainer extends Component {
         resetFormsWithin(openedModal);
     }
 
-    async handleSubmit(event) {
+    handleSubmit = async event => {
         event.preventDefault();
+        this.setState({ isSubmitDisabled: true });
+
         const form = event.target;
         const tool = {
             title: form.title.value,
@@ -55,7 +52,8 @@ class NewToolModalContainer extends Component {
             <NewToolModal {...this.props}
                 close={this.close}
                 handleSubmit={this.handleSubmit}
-                errors={this.state.errors} />
+                errors={this.state.errors}
+                isSubmitDisabled={this.state.isSubmitDisabled} />
         );
     }
 }

@@ -18,7 +18,7 @@ const NewToolModal = props => (
                 {props.errors.title ?
                     <span className="red-text fz16px df">
                         <img src="/alert-triangle.svg" alt="Alert Icon"
-                            className="mr5px"/>
+                            className="mr5px" />
                         {props.errors.title.message}
                     </span>
                     : null
@@ -31,7 +31,7 @@ const NewToolModal = props => (
                 {props.errors.link ?
                     <span className="red-text fz16px df">
                         <img src="/alert-triangle.svg" alt="Alert Icon"
-                            className="mr5px"/>
+                            className="mr5px" />
                         {props.errors.link.message}
                     </span>
                     : null
@@ -50,7 +50,7 @@ const NewToolModal = props => (
             </div>
 
             <div className="Modal__actions">
-                <button className="button green-bg">Add</button>
+                <button className="button green-bg" disabled={props.isSubmitDisabled}>Add</button>
             </div>
         </form>
     </Modal>
