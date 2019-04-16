@@ -143,8 +143,7 @@ class App extends Component {
 				<div className="container">
 					<Header searchTool={this.searchTool}
 						toggleSearchInTags={this.toggleSearchInTags}
-						onAddClick={this.toggleNewToolModalDisplay}
-					/>
+						onAddClick={this.toggleNewToolModalDisplay} />
 
 					<button className={`button-float grow-gradient show-below-601px
 						${this.state.isAddFloatBtnShown ? '' : 'button-float--hide'}`}
@@ -160,6 +159,7 @@ class App extends Component {
 							: null
 						} />
 				</div>
+				
 				<TransitionGroup component={'section'} className="notification-container">
 					{this.state.notifications.map((notification, index) =>
 						<CSSTransition
