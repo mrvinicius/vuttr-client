@@ -12,18 +12,18 @@ import Notification from './notification/Notification';
 class App extends Component {
 	state = {
 		tools: [],
-		showAddFloatBtn: true,
-		addModalIsOpen: false,
-		removalConfirmDialogIsOpen: false,
-		bodyScrollEnabled: true,
+		isAddFloatBtnShown: true,
+		isAddModalOpen: false,
+		isRemovalConfirmDialogOpen: false,
+		isBodyScrollEnabled: true,
 		toolToBeRemoved: null,
 		searchInTags: false,
-		lastSearchText: '',
+		lastSearchedText: '',
 		notifications: []
 	}
 
 	addToolsInState = (...tools) => {
-		this.setState(prevState => ({ tools: [...prevState.tools, ...tools] }));
+		this.setState(prevState => ({ tools: prevState.tools.concat(tools) }));
 	}
 
 	componentDidMount() {
@@ -32,44 +32,46 @@ class App extends Component {
 		const header = document.querySelector('.App .Header');
 		let lastScrollTop = window.pageYOffset;
 
-		document.addEventListener('scroll', e => {
+		document.addEventListener('scroll', _ => {
 			header.classList.toggle('Header--shortened', window.pageYOffset > 50);
 
 			if (window.pageYOffset > lastScrollTop) {
-				this.setState({ showAddFloatBtn: false });
+				this.setState({ isAddFloatBtnShown: false });
 			} else {
-				this.setState({ showAddFloatBtn: true });
+				this.setState({ isAddFloatBtnShown: true });
 			}
 
 			lastScrollTop = window.pageYOffset;
 		});
 	}
 
+	toggleNewToolModalDisplay = _ => {
+		this.setState({ isAddModalOpen: !this.state.isAddModalOpen });
+		this.toggleBodyScroll();
+	}
+
 	closeRemovalConfirmDialog = _ => {
 		this.setState({
-			removeModalIsOpen: false,
+			isRemovalConfirmDialogOpen: false,
 			toolToBeRemoved: null
 		});
 		this.toggleBodyScroll();
 	}
 
-	onSearchInTagsChange = checked => {
-		this.setState({ searchInTags: checked }, _ => {
-			if (this.state.lastSearchText) {
-				this.searchTool(this.state.lastSearchText);
-			}
-		});
-	}
-
 	openRemovalConfirmDialog = ({ id, title }) => {
 		this.setState({
-			toolToBeRemoved: {
-				id,
-				title
-			},
-			removeModalIsOpen: true
+			toolToBeRemoved: { id, title },
+			isRemovalConfirmDialogOpen: true
 		});
 		this.toggleBodyScroll();
+	}
+
+	toggleSearchInTags = checked => {
+		this.setState({ searchInTags: checked }, _ => {
+			if (this.state.lastSearchedText) {
+				this.searchTool(this.state.lastSearchedText);
+			}
+		});
 	}
 
 	removeTool = id => {
@@ -81,7 +83,7 @@ class App extends Component {
 		this.showNotification({
 			className: 'green-bg',
 			duration: 4000,
-			head:
+			title:
 				<h2 className="white-text">
 					<strong>Tool</strong> removed
 				</h2>,
@@ -97,14 +99,15 @@ class App extends Component {
 			tools = await toolApi.search(text.trim());
 		}
 
-		this.setState({ lastSearchText: text })
-		this.setState({ tools });
+		this.setState({ lastSearchedText: text, tools });
 	}
 
 	toggleBodyScroll = _ => {
-		this.setState({ bodyScrollEnabled: !this.state.bodyScrollEnabled }, _ => {
+		const isBodyScrollEnabled = !this.state.isBodyScrollEnabled;
+
+		this.setState({ isBodyScrollEnabled }, _ => {
 			document.body.style.overflowY =
-				this.state.bodyScrollEnabled ? 'auto' : 'hidden';
+				isBodyScrollEnabled ? 'auto' : 'hidden';
 		});
 	}
 
@@ -112,8 +115,8 @@ class App extends Component {
 		this.addToolsInState(addedTool);
 		this.showNotification({
 			className: 'green-bg',
-			duration: 40000,
-			head:
+			duration: 4000,
+			title:
 				<h2 className="white-text">
 					<strong>{addedTool.title}</strong> successfully added
 				</h2>,
@@ -137,59 +140,52 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
+				<div className="container">
+					<Header searchTool={this.searchTool}
+						toggleSearchInTags={this.toggleSearchInTags}
+						onAddClick={this.toggleNewToolModalDisplay}
+					/>
+
+					<button className={`button-float grow-gradient show-below-601px
+						${this.state.isAddFloatBtnShown ? '' : 'button-float--hide'}`}
+						onClick={this.toggleNewToolModalDisplay}>
+
+						<img className="button__icon" src="/plus.svg" alt="Add Icon" />
+					</button>
+
+					<ToolList tools={this.state.tools}
+						remove={this.openRemovalConfirmDialog}
+						searchedTag={this.state.searchInTags
+							? this.state.lastSearchedText.trim()
+							: null
+						} />
+				</div>
 				<TransitionGroup component={'section'} className="notification-container">
 					{this.state.notifications.map((notification, index) =>
 						<CSSTransition
 							unmountOnExit
 							timeout={notification.duration}
 							classNames="slide-up" key={index}>
-							<Notification {...notification} key={index} />
+							<Notification {...notification} />
 						</CSSTransition>
 					)}
 				</TransitionGroup>
-				<div className="container">
-					<Header
-						searchTool={this.searchTool}
-						onSearchInTagsChange={this.onSearchInTagsChange}
-						onAddClick={_ => {
-							this.setState({ addModalIsOpen: true });
-							this.toggleBodyScroll();
-						}}
-					/>
 
-					<button className={`button-float grow-gradient show-below-601px
-						${this.state.showAddFloatBtn ? '' : 'button-float--hide'}`}
-						onClick={_ => {
-							this.setState({ addModalIsOpen: true });
-							this.toggleBodyScroll();
-						}}>
+				<NewToolModalContainer
+					isOpen={this.state.isAddModalOpen}
+					close={this.toggleNewToolModalDisplay}
+					handleAddedTool={this.handleAddedTool} />
 
-						<img className="button__icon" src="/plus.svg" alt="Add Icon" />
-					</button>
-
-
-					<ToolList tools={this.state.tools}
-						remove={this.openRemovalConfirmDialog}
-						searchedTag={this.state.searchInTags ? this.state.lastSearchText.trim() : null} />
-
-
-					<NewToolModalContainer
-						isOpen={this.state.addModalIsOpen}
-						close={_ => {
-							this.setState({ addModalIsOpen: false });
-							this.toggleBodyScroll();
-						}}
-						handleAddedTool={this.handleAddedTool} />
-
-					<RemovalConfirmDialog
-						isOpen={this.state.removeModalIsOpen}
-						close={_ => this.closeRemovalConfirmDialog()}
-						remove={this.removeTool}
-						tool={this.state.toolToBeRemoved} />
-				</div>
+				<RemovalConfirmDialog
+					isOpen={this.state.isRemovalConfirmDialogOpen}
+					close={this.closeRemovalConfirmDialog}
+					remove={this.removeTool}
+					tool={this.state.toolToBeRemoved} />
 			</div>
 		);
 	}
 }
+
+
 
 export default App;
