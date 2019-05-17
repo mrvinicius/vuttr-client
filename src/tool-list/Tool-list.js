@@ -3,7 +3,7 @@ import React from 'react';
 import './Tool-list.css';
 import ToolItem from '../tool-item/Tool-item';
 
-const ToolList = ({ tools, remove, searchedTag }) => (
+const ToolList = ({ remove, searchedTag, tools = [] }) => (
     <section className="Tool-list">
         {tools.map(
             tool => <ToolItem {...tool}
