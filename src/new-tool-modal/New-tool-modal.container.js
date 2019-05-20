@@ -81,16 +81,16 @@ function validateTool(tool) {
     const errors = {};
 
     if (!tool.title || !tool.title.length)
-        errors["title"] = { message: 'Nome da ferramenta, por favor!' };
+        errors["title"] = 'Nome da ferramenta, por favor!';
 
     if (!tool.link || !tool.link.length) {
-        errors["link"] = { message: 'Insira a URL' };
+        errors["link"] = 'Insira a URL';
     } else {
         const regex = /(?=(([0-9a-fA-F]{4}):([0-9a-fA-F]{4}):([0-9a-fA-F]{4})::([0-9a-fA-F]{4}))|(^\s*(((https?(?![0-9][a-zA-Z]):)?(\/\/)((w{3}?).)?)?)([\w-]+\.)+[\w-]+([\w- ;,./_?!%&<>\\[\]=]*)))/;
         const isValidUrl = regex.test(tool.link);
 
         if (!isValidUrl)
-            errors["link"] = { message: 'URL inválida' };
+            errors["link"] = 'URL inválida';
     }
 
     return errors;
