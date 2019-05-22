@@ -13,17 +13,23 @@ function setHttp(url) {
     return trimmedUrl;
 }
 
-function validateTool(tool) {
-    const errors = {};
+function validateUrl(url) {
+    const regex = /(?=(([0-9a-fA-F]{4}):([0-9a-fA-F]{4}):([0-9a-fA-F]{4})::([0-9a-fA-F]{4}))|(^\s*(((https?(?![0-9][a-zA-Z]):)?(\/\/)((w{3}?).)?)?)([\w-]+\.)+[\w-]+([\w- ;,./_?!%&<>\\[\]=]*)))/;
+    return regex.test(url);
+}
 
-    if (!tool.title || !tool.title.length)
+function validateTool(tool) {
+    const errors = {},
+        trimmedTitle = tool.title ? tool.title.trim() : null;
+
+
+    if (!trimmedTitle || !trimmedTitle.length)
         errors["title"] = 'Por favor, insira o nome da ferramenta';
 
     if (!tool.link || !tool.link.length) {
         errors["link"] = 'Insira a URL';
     } else {
-        const regex = /(?=(([0-9a-fA-F]{4}):([0-9a-fA-F]{4}):([0-9a-fA-F]{4})::([0-9a-fA-F]{4}))|(^\s*(((https?(?![0-9][a-zA-Z]):)?(\/\/)((w{3}?).)?)?)([\w-]+\.)+[\w-]+([\w- ;,./_?!%&<>\\[\]=]*)))/;
-        const isValidUrl = regex.test(tool.link);
+        const isValidUrl = validateUrl(tool.link)
 
         if (!isValidUrl)
             errors["link"] = 'URL inválida';
