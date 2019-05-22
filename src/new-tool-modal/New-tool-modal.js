@@ -13,7 +13,8 @@ const NewToolModal = props => (
             {props.errors.formMessage ? props.errors.formMessage : null}
         </strong>
 
-        <form id="newToolModal" autoComplete="off" onSubmit={props.handleSubmit}>
+        <form id="newToolModal" name="NewToolModal"
+            autoComplete="off" onSubmit={props.handleSubmit}>
 
             <div className="form-group">
                 <input autoComplete="off" type="text" name="title" id="title" />

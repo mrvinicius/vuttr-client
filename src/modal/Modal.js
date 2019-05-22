@@ -10,12 +10,12 @@ export default class Modal extends Component {
 
     handleEscPress = event => {
         if (this.props.isOpen && event.keyCode === 27)
-            this.props.close();
+            this.props.close(event);
     }
 
     handleOverlayClick = event => {
         if (event.target === event.currentTarget)
-            this.props.close();
+            this.props.close(event);
     }
 
     render() {
