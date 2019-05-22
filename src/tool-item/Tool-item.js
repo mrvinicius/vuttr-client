@@ -14,26 +14,37 @@ const ToolItem = ({ id, title, link, description, tags, remove, searchedTag }) =
         </header>
         <p className="Tool-item__description">{description}</p>
         <section className="Tool-item__tags">
-            {searchedTag ?
-                tags.map((tag, index) => {
-                    const matchedTag =
-                        tag.split(searchedTag).reduce((prev, current) => {
-                            return <>
-                                {prev}
-                                <mark className='highlight'>{searchedTag}</mark>
-                                {current}
-                            </>
-                        });
-
-                    return placeTags(matchedTag, index);
-                })
-                : tags.map(placeTags)
+            {searchedTag
+                ? highlightMatchedTags(tags, searchedTag)
+                : tags.map(placeTag)
             }
         </section>
     </div>
 );
 
-const placeTags = (tag, index) => (
+const highlightMatchedTags = (tags, searchedTag) => {
+    const regex = new RegExp(searchedTag, 'ig');
+
+    return tags.map((tag, index) => {
+        const handledTag = tag
+            .replace(regex, match => ` ${match} `)
+            .trim()
+            .split(' ')
+            .reduce((prev, current) => {
+                return <>
+                    {prev}
+                    {regex.test(current)
+                        ? <mark className='highlight'>{current}</mark>
+                        : current}
+
+                </>
+            }, '');
+
+        return placeTag(handledTag, index);
+    })
+}
+
+const placeTag = (tag, index) => (
     <span className="fw600" key={index}>
         #{tag}&nbsp;
     </span>

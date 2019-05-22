@@ -30,15 +30,26 @@ describe('ToolItem', () => {
         })
     })
 
-    it('highlights searched text inside the tags', () => {
+    it('case-insensitive matches searched text inside the tags and highlights', () => {
         const props = {
             id: 1,
             searchedTag: 'N',
             tags: ['plaNNiNg']
         }
 
-        const highlightedElements = mount(<ToolItem {...props} />)
-            .find('.Tool-item__tags .highlight');
+        const toolItemComponent = mount(<ToolItem {...props} />);
+        let highlightedElements =
+            toolItemComponent.find('.Tool-item__tags .highlight');
+
+        expect(
+            highlightedElements.map(el => el.text())
+                .filter(text => text === 'N')
+                .length
+        ).toBe(3);
+
+        toolItemComponent.setProps({ searchedTag: 'n' });
+        highlightedElements =
+            toolItemComponent.find('.Tool-item__tags .highlight');
 
         expect(
             highlightedElements.map(el => el.text())
