@@ -34,11 +34,9 @@ class App extends Component {
 		document.addEventListener('scroll', () => {
 			header.classList.toggle('Header--shortened', window.pageYOffset > 50);
 
-			if (window.pageYOffset > lastScrollTop) {
-				this.setState({ isAddFloatBtnShown: false });
-			} else {
-				this.setState({ isAddFloatBtnShown: true });
-			}
+			this.setState({
+				isAddFloatBtnShown: window.pageYOffset > lastScrollTop ? false : true
+			});
 
 			lastScrollTop = window.pageYOffset;
 		});
@@ -90,23 +88,19 @@ class App extends Component {
 	}
 
 	searchTool = async text => {
-		let tools;
-
-		if (this.state.searchInTags) {
-			tools = await toolApi.searchInTags(text.trim());
-		} else {
-			tools = await toolApi.search(text.trim());
-		}
-
-		this.setState({ lastSearchedText: text, tools });
+		this.setState({
+			lastSearchedText: text,
+			tools: this.state.searchInTags
+				? await toolApi.searchInTags(text.trim())
+				: await toolApi.search(text.trim())
+		});
 	}
 
 	toggleBodyScroll = () => {
 		const isBodyScrollEnabled = !this.state.isBodyScrollEnabled;
 
 		this.setState({ isBodyScrollEnabled }, () => {
-			document.body.style.overflowY =
-				isBodyScrollEnabled ? 'auto' : 'hidden';
+			document.body.style.overflowY = isBodyScrollEnabled ? 'auto' : 'hidden';
 		});
 	}
 
@@ -175,7 +169,5 @@ class App extends Component {
 		);
 	}
 }
-
-
 
 export default App;
