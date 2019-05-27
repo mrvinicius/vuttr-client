@@ -9,9 +9,9 @@ Aplicação  **front-end** para gerenciar ferramentas feita para o desafio **Bos
 
 ## Requisitos
 
- - **Node** (v8.10.0 ou superior)
- - **npm** ou **Yarn**
- - **Fake-api** rodando na porta 3000 [(veja o passo a passo)](https://github.com/mrvinicius/vuttr-fake-api)
+ - Node (v8.10.0 ou superior)
+ - npm ou Yarn
+ - [Fake-api](https://github.com/mrvinicius/vuttr-fake-api) rodando na porta 3000 
 
 ## Instalação
 Faça o clone deste repositório e acesse o diretório:
