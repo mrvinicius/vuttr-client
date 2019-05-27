@@ -9,7 +9,7 @@ const RemovalConfirmDialog = props => (
 			<h2 className="Modal__title">Remove tool</h2>
 		</>
 	}>
-		<p>Are you sure you want to remove<strong>{props.tool && props.tool.title}</strong>?</p>
+		<p>Are you sure you want to remove <strong>{props.tool && props.tool.title}</strong>?</p>
 		<div className="Modal__actions">
 			<button className="button-flat grey-text"
 				onClick={props.close}>Cancel</button>
